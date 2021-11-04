@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveUtil;
 
 public class OperateDrive extends CommandBase {
@@ -30,10 +30,10 @@ public class OperateDrive extends CommandBase {
   public void execute() {
     switch(mode){
       case tank:
-        driveUtil.driveTank(Robot.m_robotContainer.getLeftStickY(), Robot.m_robotContainer.getRightStickY());
+        driveUtil.driveTank(RobotContainer.getLeftStickY(), RobotContainer.getRightStickY());
         break;
       case arcade:
-        driveUtil.driveArcade(Robot.m_robotContainer.getRightStickY(), Robot.m_robotContainer.getRightStickX());
+        driveUtil.driveArcade(RobotContainer.getRightStickY(), RobotContainer.getRightStickX());
         break;
       default:
     }

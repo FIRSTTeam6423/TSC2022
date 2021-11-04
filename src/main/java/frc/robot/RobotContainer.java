@@ -34,9 +34,9 @@ public class RobotContainer {
 
 
   //  HIDs...
-  public final Joystick leftStick, rightStick;
-  public final XboxController controller;
-  public final JoystickButton tankMode, arcadeMode, operateTank, operateArcade;
+  public static Joystick leftStick, rightStick;
+  public static XboxController controller;
+  public static JoystickButton tankMode, arcadeMode, operateTank, operateArcade;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -86,19 +86,19 @@ public class RobotContainer {
     return null;
   }
 
-  public double getLeftStickX(){
+  public static double getLeftStickX(){
     return leftStick.getX();
   }
 
-  public double getLeftStickY(){
+  public static double getLeftStickY(){
     return leftStick.getY();
   }
 
-  public double getRightStickX(){
+  public static double getRightStickX(){
     return rightStick.getX();
   }
 
-  public double getRightStickY(){
+  public static double getRightStickY(){
     return rightStick.getY();
   }
 }

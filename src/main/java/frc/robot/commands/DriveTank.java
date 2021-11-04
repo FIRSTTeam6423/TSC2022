@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveUtil;
 
 public class DriveTank extends CommandBase {
@@ -26,7 +26,7 @@ public class DriveTank extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveUtil.driveTank(Robot.m_robotContainer.getLeftStickY(), Robot.m_robotContainer.getRightStickY());
+    driveUtil.driveTank(RobotContainer.getLeftStickY(), RobotContainer.getRightStickY());
   }
 
   // Called once the command ends or is interrupted.
