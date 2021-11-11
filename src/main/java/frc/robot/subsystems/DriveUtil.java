@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
@@ -13,27 +15,25 @@ import frc.robot.Constants;
 
 public class DriveUtil extends SubsystemBase {
 
-  private Talon leftPrimary;
-  private Talon leftSecondary;
-  private Talon rightPrimary;
-  private Talon rightSecondary;
-
-  private SpeedController leftMotor;
-  private SpeedController rightMotor;
+  private WPI_VictorSPX leftPrimary, leftSecondary, rightPrimary, rightSecondary;
 
   private DifferentialDrive drive;
 
   /** Creates a new DriveUtil. */
   public DriveUtil() {
-    leftPrimary = new Talon(Constants.LEFT_PRIMARY);
-    leftSecondary = new Talon(Constants.LEFT_SECONDARY);
-    rightPrimary = new Talon(Constants.RIGHT_PRIMARY);
-    rightSecondary = new Talon(Constants.RIGHT_SECONDARY);
+    leftPrimary = new WPI_VictorSPX(Constants.LEFT_PRIMARY);
+    leftSecondary = new WPI_VictorSPX(Constants.LEFT_SECONDARY);
+    rightPrimary = new WPI_VictorSPX(Constants.RIGHT_PRIMARY);
+    rightSecondary = new WPI_VictorSPX(Constants.RIGHT_SECONDARY);
 
-    leftMotor = new SpeedControllerGroup(leftPrimary, leftSecondary);
-    rightMotor = new SpeedControllerGroup(rightPrimary, rightSecondary);
+    leftSecondary.setInverted(true);
+    rightSecondary.setInverted(true);
 
-    drive = new DifferentialDrive(leftMotor, rightMotor);
+    leftSecondary.follow(leftPrimary);
+    rightSecondary.follow(rightPrimary);
+
+
+    drive = new DifferentialDrive(leftPrimary, rightPrimary);
     }
 
   @Override
