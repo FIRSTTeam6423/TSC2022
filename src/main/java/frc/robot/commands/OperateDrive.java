@@ -10,15 +10,13 @@ import frc.robot.subsystems.DriveUtil;
 
 public class OperateDrive extends CommandBase {
 
-  public DriveUtil driveUtil;
-  public DriveMode mode;
-
+  private DriveUtil driveUtil;
+  
   /** Creates a new OperateDrive. */
-  public OperateDrive(DriveUtil driveUtil, DriveMode mode) {
+  public OperateDrive(DriveUtil du) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.driveUtil = driveUtil;
-    this.mode = mode;
-    addRequirements(driveUtil);
+    this.driveUtil = du;
+    addRequirements(this.driveUtil);
   }
 
   // Called when the command is initially scheduled.
@@ -28,15 +26,10 @@ public class OperateDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(mode){
-      case tank:
-        driveUtil.driveTank(RobotContainer.getLeftStickY(), RobotContainer.getRightStickY());
-        break;
-      case arcade:
-        driveUtil.driveArcade(RobotContainer.getRightStickY(), RobotContainer.getRightStickX());
-        break;
-      default:
-    }
+    driveUtil.driveRobot(RobotContainer.getLeftStickX(), 
+                          RobotContainer.getLeftStickY(), 
+                          RobotContainer.getRightStickX(),
+                          RobotContainer.getRightStickY());
   }
 
   // Called once the command ends or is interrupted.

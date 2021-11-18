@@ -6,48 +6,74 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.handlers.DriveMode;
 
 public class DriveUtil extends SubsystemBase {
-
+  // Motor controllers
   private WPI_VictorSPX leftPrimary, leftSecondary, rightPrimary, rightSecondary;
 
-  private DifferentialDrive drive;
+  // Drive controller
+  private DifferentialDrive differentialDrive;
 
-  /** Creates a new DriveUtil. */
+  // DriveMode defaults to TANK
+  private DriveMode driveMode = DriveMode.TANK;
+
   public DriveUtil() {
+    // Initialize speed controllers (VictorSPX)
     leftPrimary = new WPI_VictorSPX(Constants.LEFT_PRIMARY);
     leftSecondary = new WPI_VictorSPX(Constants.LEFT_SECONDARY);
     rightPrimary = new WPI_VictorSPX(Constants.RIGHT_PRIMARY);
     rightSecondary = new WPI_VictorSPX(Constants.RIGHT_SECONDARY);
 
-    leftSecondary.setInverted(true);
-    rightSecondary.setInverted(true);
-
+    // Set secondaries to follow primaries
     leftSecondary.follow(leftPrimary);
     rightSecondary.follow(rightPrimary);
 
+    // Invert secondaries (since they're on the opposite side of the robot)
+    leftSecondary.setInverted(true);
+    rightSecondary.setInverted(true);
 
-    drive = new DifferentialDrive(leftPrimary, rightPrimary);
+    // Initialize DifferentialDrive controller
+    differentialDrive = new DifferentialDrive(leftPrimary, rightPrimary);
+  }
+
+  public void toggleDriveMode() {
+    if (driveMode.equals(DriveMode.ARCADE)) {
+      driveMode = DriveMode.TANK;
+    } else {
+      driveMode = DriveMode.ARCADE;
     }
+  }
+
+  /**
+   * Drive the robot based on the driveMode class parameter.
+   * If in TANK mode, use leftX and rightX values.
+   * If in ARCADE mode, use rightX and rightY values.
+   * 
+   * The DifferentialDrive class will square inputs for us.
+   * Squaring inputs results in less sensitive inputs.
+   * 
+   * @param leftX the left controller's X (forward-backward) value
+   * @param leftY the left controller's Y (left-right) value
+   * @param rightX the right controller's X (forward-backward) value
+   * @param rightY the right controller's Y (left-right) value
+   */
+  public void driveRobot(double leftX, double leftY, double rightX, double rightY) {
+    if (driveMode.equals(DriveMode.ARCADE)) {
+      // If we're in ARCADE mode, use arcadeDrive
+      differentialDrive.arcadeDrive(rightX, rightY);
+    } else if (driveMode.equals(DriveMode.TANK)) {
+      // If we're in TANK mode, use tankDrive
+      differentialDrive.tankDrive(leftY, rightY);
+    }
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
   }
-
-  public void driveTank(double leftSpeed, double rightSpeed){
-    drive.tankDrive(leftSpeed, rightSpeed);
-  }
-
-  public void driveArcade(double xSpeed, double zRotation){
-    //zRotation can be substituted by the yAxis.get() method call
-    drive.arcadeDrive(xSpeed, zRotation);
-  }
+  
 }

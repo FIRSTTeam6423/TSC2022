@@ -8,10 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveArcade;
-import frc.robot.commands.DriveMode;
-import frc.robot.commands.DriveTank;
 import frc.robot.commands.OperateDrive;
 import frc.robot.subsystems.DriveUtil;
 
@@ -22,39 +20,30 @@ import frc.robot.subsystems.DriveUtil;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  
   // The robot's subsystems and commands are defined here...
-  //  Subsystems...
   private final DriveUtil driveUtil = new DriveUtil();
 
+  private final OperateDrive operateDrive = new OperateDrive(driveUtil);
 
-  //  Commands...
-  private final DriveTank driveTank = new DriveTank(driveUtil);
-  private final DriveArcade driveArcade = new DriveArcade(driveUtil);
-
-
-  //  HIDs...
   public static Joystick leftStick, rightStick;
-  public static XboxController controller;
-  public static JoystickButton tankMode, arcadeMode, operateTank, operateArcade;
+  public static XboxController operator;
+  private static JoystickButton toggleDrive;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
     leftStick = new Joystick(Constants.LEFT_STICK);
     rightStick = new Joystick(Constants.RIGHT_STICK);
-    controller = new XboxController(Constants.CONTROLLER);
+    operator = new XboxController(Constants.XBOX);
 
-    tankMode = new JoystickButton(rightStick, Constants.kJoystickButton1);
-    arcadeMode = new JoystickButton(rightStick, Constants.kJoystickButton3);
-    operateTank = new JoystickButton(leftStick, Constants.kJoystickButton1);
-    operateArcade = new JoystickButton(leftStick, Constants.kJoystickButton3);
-
-    
+    toggleDrive = new JoystickButton(rightStick, Constants.kBButtonNum);
 
     // Configure the button bindings
     configureButtonBindings();
-    setDefaultCommands();
+
+    // Set Default Commands
+    configureDefaultCommands();
+
   }
 
   /**
@@ -64,15 +53,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    tankMode.whenPressed(new DriveTank(driveUtil));
-    arcadeMode.whenPressed(new DriveArcade(driveUtil));
-    operateTank.whenPressed(new OperateDrive(driveUtil, DriveMode.tank));
-    operateArcade.whenPressed(new OperateDrive(driveUtil, DriveMode.arcade));
-
-  }
-
-  private void setDefaultCommands(){
-    driveUtil.setDefaultCommand(driveTank);
+      toggleDrive.whenPressed(new InstantCommand(() -> driveUtil.toggleDriveMode(), driveUtil));
   }
 
   /**
@@ -82,8 +63,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    // return m_autoCommand;
+    //return m_autoCommand;
     return null;
+  }
+
+  private void configureDefaultCommands(){
+    driveUtil.setDefaultCommand(operateDrive);
   }
 
   public static double getLeftStickX(){
@@ -101,4 +86,5 @@ public class RobotContainer {
   public static double getRightStickY(){
     return rightStick.getY();
   }
+
 }
