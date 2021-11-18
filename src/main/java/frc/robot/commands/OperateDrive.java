@@ -26,10 +26,10 @@ public class OperateDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveUtil.driveRobot(RobotContainer.getLeftStickX(), 
-                          RobotContainer.getLeftStickY(), 
-                          RobotContainer.getRightStickX(),
-                          RobotContainer.getRightStickY());
+    driveUtil.driveRobot(RobotContainer.getLeftXboxX(), 
+                          RobotContainer.getLeftXboxY(), 
+                          RobotContainer.getRightXboxX(),
+                          RobotContainer.getRightXboxY());
   }
 
   // Called once the command ends or is interrupted.

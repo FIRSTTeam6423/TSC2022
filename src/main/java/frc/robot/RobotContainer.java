@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -27,7 +28,7 @@ public class RobotContainer {
 
   public static Joystick leftStick, rightStick;
   public static XboxController operator;
-  private static JoystickButton toggleDrive;
+  // private static ButtonMonitor toggleDrive;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -36,7 +37,7 @@ public class RobotContainer {
     rightStick = new Joystick(Constants.RIGHT_STICK);
     operator = new XboxController(Constants.XBOX);
 
-    toggleDrive = new JoystickButton(rightStick, Constants.kBButtonNum);
+    //toggleDrive = new ButtonMonitor(operator, XboxController.Button.kStart);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -53,9 +54,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-      toggleDrive.whenPressed(new InstantCommand(() -> driveUtil.toggleDriveMode(), driveUtil));
+      new JoystickButton(operator, Button.kStart.value)
+      .whenPressed(new InstantCommand(() -> driveUtil.toggleDriveMode(), driveUtil));
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -85,6 +86,22 @@ public class RobotContainer {
 
   public static double getRightStickY(){
     return rightStick.getY();
+  }
+
+  public static double getLeftXboxX(){
+    return operator.getX(GenericHID.Hand.kLeft);
+  }
+
+  public static double getLeftXboxY(){
+    return operator.getY(GenericHID.Hand.kLeft);
+  }
+
+  public static double getRightXboxX(){
+    return operator.getX(GenericHID.Hand.kRight);
+  }
+
+  public static double getRightXboxY(){
+    return operator.getY(GenericHID.Hand.kRight);
   }
 
 }
