@@ -69,7 +69,7 @@ public class DriveUtil extends SubsystemBase {
       differentialDrive.arcadeDrive(rightY, rightX);
     } else if (driveMode.equals(DriveMode.TANK)) {
       // If we're in TANK mode, use tankDrive
-      differentialDrive.tankDrive(leftY, rightY);
+      differentialDrive.tankDrive(leftY/2, rightY/2);
     }
   }
 
