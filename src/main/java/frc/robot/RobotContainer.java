@@ -104,4 +104,12 @@ public class RobotContainer {
     return operator.getY(GenericHID.Hand.kRight);
   }
 
+  public static double getRightTriggerXbox(){
+    return operator.getTriggerAxis(GenericHID.Hand.kRight);
+  }
+
+  public static double getLeftTriggerXbox(){
+    return operator.getTriggerAxis(GenericHID.Hand.kLeft);
+  }
+
 }

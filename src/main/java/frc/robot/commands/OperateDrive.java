@@ -29,7 +29,9 @@ public class OperateDrive extends CommandBase {
     driveUtil.driveRobot(RobotContainer.getLeftXboxX(), 
                           RobotContainer.getLeftXboxY(), 
                           RobotContainer.getRightXboxX(),
-                          RobotContainer.getRightXboxY());
+                          RobotContainer.getRightXboxY()
+                          RobotContainer.getLeftTriggerXbox(),
+                          RobotContainer.getRightTriggerXbox());
   }
 
   // Called once the command ends or is interrupted.

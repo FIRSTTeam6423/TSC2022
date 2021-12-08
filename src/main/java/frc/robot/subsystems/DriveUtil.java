@@ -21,7 +21,7 @@ public class DriveUtil extends SubsystemBase {
   private DifferentialDrive differentialDrive;
 
   // DriveMode defaults to TANK
-  private DriveMode driveMode = DriveMode.TANK;
+  private DriveMode driveMode = DriveMode.SPARROW;
 
   public DriveUtil() {
     // Initialize speed controllers (VictorSPX)
@@ -45,7 +45,9 @@ public class DriveUtil extends SubsystemBase {
   public void toggleDriveMode() {
     if (driveMode.equals(DriveMode.ARCADE)) {
       driveMode = DriveMode.TANK;
-    } else {
+    } else if (driveMode.equals(DriveMode.SPARROW)){
+      driveMode = DriveMode.SPARROW;
+    } else{
       driveMode = DriveMode.ARCADE;
     }
   }
@@ -62,14 +64,19 @@ public class DriveUtil extends SubsystemBase {
    * @param leftY the left controller's Y (left-right) value
    * @param rightX the right controller's X (forward-backward) value
    * @param rightY the right controller's Y (left-right) value
+   * @param leftTrigger the left controller's Trigger (backward) value
+   * @param rightTrigger the right controller's Trigger (forward) value
    */
-  public void driveRobot(double leftX, double leftY, double rightX, double rightY) {
+  public void driveRobot(double leftX, double leftY, double rightX, double rightY, double leftTrigger, double rightTrigger) {
     if (driveMode.equals(DriveMode.ARCADE)) {
       // If we're in ARCADE mode, use arcadeDrive
-      differentialDrive.arcadeDrive(rightY, rightX);
+      differentialDrive.arcadeDrive(rightY, -rightX);
     } else if (driveMode.equals(DriveMode.TANK)) {
       // If we're in TANK mode, use tankDrive
       differentialDrive.tankDrive(leftY/2, rightY/2);
+    } else if (driveMode.equals(DriveMode.SPARROW)) {
+      // If we're in SPARROW mode, use sparrowDrive
+      differentialDrive.curvatureDrive(rightTrigger - leftTrigger, leftX);
     }
   }
 
