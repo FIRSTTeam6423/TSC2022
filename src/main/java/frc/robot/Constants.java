@@ -17,14 +17,28 @@ public final class Constants {
     /**
     * DriveUtil Constants
     */
+    /** TODO
+     * The CAN IDs for these motors need to change.  Should not be using 0 as an ID
+     * Also need to update the Mapping document to reflect the correct CAN ID Assignments
+     */
     public static final int LEFT_PRIMARY = 4;
     public static final int LEFT_SECONDARY = 0;
     public static final int RIGHT_PRIMARY = 5;
     public static final int RIGHT_SECONDARY = 2;
 
     /**
-     * ShotUtil Constants
+     * CannonUtil Constants
      */
+    public static final int ANGLE_MOTOR = 6;
+    public static final int ANGLE_CONTROL = 0;
+    public static final int UPPER_LIMIT = 0;
+    public static final int LOWER_LIMIT = 1;
+    public static final int TRIGGER1_FORWARD = 0;
+    public static final int TRIGGER1_BACK = 1;
+    public static final int TRIGGER2_FORWARD = 2;
+    public static final int TRIGGER2_BACK = 3;
+    public static final int TRIGGER3_FORWARD = 4;
+    public static final int TRIGGER3_BACK = 5;
 
   /**
    * Controller Input Device Mapping
