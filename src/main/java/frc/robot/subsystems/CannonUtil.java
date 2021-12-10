@@ -9,9 +9,33 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class CannonUtil extends SubsystemBase {
   /** Creates a new CannonUtil. */
   /** Place your variables here so they have class scope */
+  private WPI_TalonSRX shotAngle; 
+  private DigitalInput lowerSwitch;
+  private DigitalInput upperSwitch;
+  private AnalogInput angleSensor;
+  
+  private DoubleSolenoid trigger1;
+  private DoubleSolenoid trigger2;
+  private DoubleSolenoid trigger3;
+
   public CannonUtil() {
   /** instanciate your objects here in the class constructor */
 
+
+  }
+
+  public void fireCannon(int cn) {
+    switch(cn){
+      case 1:
+        trigger1.set(DoubleSolenoid.Value.kForward);
+        break;
+      case 2: 
+        trigger2.set(DoubleSolenoid.Value.kForward);
+        break;
+      case 3:
+        trigger3.set(DoubleSolenoid.Value.kForward);
+        break;
+    }
   }
 
   /** Add specific methods the Util must expose to Commands */
