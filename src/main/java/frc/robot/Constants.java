@@ -40,6 +40,13 @@ public final class Constants {
     public static final int TRIGGER3_FORWARD = 4;
     public static final int TRIGGER3_BACK = 5;
 
+    /**
+     * CannonUtilTemp Constants
+     */
+    public static final int BARREL_ONE = 4;
+    public static final int BARREL_TWO = 5;
+    public static final int STOP_ONE = 0;
+    public static final int STOP_TWO = 1;
   /**
    * Controller Input Device Mapping
    */

@@ -41,8 +41,11 @@ public class CannonUtil extends SubsystemBase {
   /** Add specific methods the Util must expose to Commands */
 
 
+  private float triggerCloseTimeout = 1.0;
+  private int triggerCloseTicker = 0;
   @Override
   public void periodic() {
+    //20ms
     // This method will be called once per scheduler run
     /** Typically we send sensor and motor outputs to the SmartDashboard here */
   }
