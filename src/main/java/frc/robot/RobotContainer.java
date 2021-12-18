@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.OperateCannon;
 import frc.robot.commands.OperateDrive;
+import frc.robot.subsystems.CannonUtilTemp;
 import frc.robot.subsystems.DriveUtil;
 
 /**
@@ -23,13 +25,14 @@ import frc.robot.subsystems.DriveUtil;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveUtil driveUtil = new DriveUtil();
-
+  private final CannonUtilTemp cannonUtil = new CannonUtilTemp();
+  
   private final OperateDrive operateDrive = new OperateDrive(driveUtil);
+  
 
   public static Joystick leftStick, rightStick;
   public static XboxController operator;
-  // private static ButtonMonitor toggleDrive;
-
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -37,7 +40,6 @@ public class RobotContainer {
     rightStick = new Joystick(Constants.RIGHT_STICK);
     operator = new XboxController(Constants.XBOX);
 
-    //toggleDrive = new ButtonMonitor(operator, XboxController.Button.kStart);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -54,8 +56,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    /** XBox Start Button will toggle Drive Mode between Tank and Arcade */
       new JoystickButton(operator, Button.kStart.value)
       .whenPressed(new InstantCommand(() -> driveUtil.toggleDriveMode(), driveUtil));
+
+    /** XBox Button Mapping for Shooting Barrel 1 and 2 */
+      new JoystickButton(operator, XboxController.Button.kB.value)
+      .whenPressed(new OperateCannon(cannonUtil, 1));
+      
+      new JoystickButton(operator, XboxController.Button.kY.value)
+      .whenPressed(new OperateCannon(cannonUtil, 2));
+
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
