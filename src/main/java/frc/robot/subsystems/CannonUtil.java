@@ -4,6 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CannonUtil extends SubsystemBase {
@@ -41,8 +46,9 @@ public class CannonUtil extends SubsystemBase {
   /** Add specific methods the Util must expose to Commands */
 
 
-  private float triggerCloseTimeout = 1.0;
-  private int triggerCloseTicker = 0;
+  // private float triggerCloseTimeout = 1.0;
+  // private int triggerCloseTicker = 0;
+  
   @Override
   public void periodic() {
     //20ms

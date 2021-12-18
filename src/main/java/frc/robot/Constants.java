@@ -47,6 +47,8 @@ public final class Constants {
     public static final int BARREL_TWO = 5;
     public static final int STOP_ONE = 0;
     public static final int STOP_TWO = 1;
+    public static final double CANNON_MOTOR_SPEED = 0.1;
+
   /**
    * Controller Input Device Mapping
    */

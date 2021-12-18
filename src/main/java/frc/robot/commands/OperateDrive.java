@@ -11,8 +11,7 @@ import frc.robot.subsystems.DriveUtil;
 public class OperateDrive extends CommandBase {
 
   private DriveUtil driveUtil;
-  private CannonUtilTemp cannonTempUtil;
-
+ 
   /** Creates a new OperateDrive. */
   public OperateDrive(DriveUtil du) {
     // Use addRequirements() here to declare subsystem dependencies.
