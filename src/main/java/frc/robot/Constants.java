@@ -26,6 +26,10 @@ public final class Constants {
     public static final int RIGHT_PRIMARY = 5;
     public static final int RIGHT_SECONDARY = 2;
 
+    public static final int ARCADE_LEFT_DAMPENING = 60;
+    public static final int ARCADE_RIGHT_DAMPENING = 60;
+
+
     /**
      * CannonUtil Constants
      */

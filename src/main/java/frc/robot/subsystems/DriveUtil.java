@@ -5,12 +5,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.handlers.DriveMode;
+import frc.robot.RobotContainer;
 
 public class DriveUtil extends SubsystemBase {
   // Motor controllers
@@ -20,8 +22,7 @@ public class DriveUtil extends SubsystemBase {
   // Drive controller
   private DifferentialDrive differentialDrive;
 
-  // DriveMode defaults to TANK
-  private DriveMode driveMode = DriveMode.TANK;
+  private double damp;
 
   public DriveUtil() {
     // Initialize speed controllers (VictorSPX)
@@ -34,20 +35,14 @@ public class DriveUtil extends SubsystemBase {
     leftSecondary.follow(leftPrimary);
     rightSecondary.follow(rightPrimary);
 
+    damp = 0.0;
+
     // Invert secondaries (since they're on the opposite side of the robot)
     //leftSecondary.setInverted(true);
     //rightSecondary.setInverted(true);
 
     // Initialize DifferentialDrive controller
     differentialDrive = new DifferentialDrive(leftPrimary, rightPrimary);
-  }
-
-  public void toggleDriveMode() {
-    if (driveMode.equals(DriveMode.ARCADE)) {
-      driveMode = DriveMode.TANK;
-    } else {
-      driveMode = DriveMode.ARCADE;
-    }
   }
 
   /**
@@ -63,19 +58,55 @@ public class DriveUtil extends SubsystemBase {
    * @param rightX the right controller's X (forward-backward) value
    * @param rightY the right controller's Y (left-right) value
    */
-  public void driveRobot(double leftX, double leftY, double rightX, double rightY) {
-    if (driveMode.equals(DriveMode.ARCADE)) {
+  public void driveRobot() {
+    setDriveControls();
+    if (RobotContainer.driveType.getSelected().equals(RobotContainer.tank)) {
       // If we're in ARCADE mode, use arcadeDrive
-      differentialDrive.arcadeDrive(rightY, rightX);
-    } else if (driveMode.equals(DriveMode.TANK)) {
+      differentialDrive.arcadeDrive(RobotContainer.getRightStickY(), RobotContainer.getRightStickY());
+    } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.arcade)) {
       // If we're in TANK mode, use tankDrive
-      differentialDrive.tankDrive(leftY/2, rightY/2);
+      differentialDrive.tankDrive(RobotContainer.getLeftStickY(), RobotContainer.getRightStickY());
+    } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.sparrow)) {
+      // If we are in SPARROW mode, use the custom code.
+      driveSparrow();
     }
   }
+
+  private void setDriveControls(){
+    if (RobotContainer.noobMode.getSelected().equals(RobotContainer.pro)) {
+      this.damp = 1.0;
+    }
+    if (RobotContainer.noobMode.getSelected().equals(RobotContainer.noob)) {
+      this.damp = 0.6;
+    }
+
+  }
+
+  private void driveSparrow(){
+    if(RobotContainer.getLeftXboxX() < 0) {
+      sparrowDrive(((RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger()) * damp),
+                                   (-RobotContainer.getLeftXboxX() * damp), 0.0);
+    } else {
+      sparrowDrive(((RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger()) * damp),
+                                   0.0, (RobotContainer.getLeftXboxX() * damp));
+    } 
+
+  }
+
+  public void sparrowDrive(double straight, double left, double right) {
+    left = left*Constants.ARCADE_LEFT_DAMPENING/100;
+    right = right*Constants.ARCADE_RIGHT_DAMPENING/100;
+    leftPrimary.set(ControlMode.PercentOutput, straight + left - right);
+    rightPrimary.set(ControlMode.PercentOutput, -(straight - left + right)); 
+}
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    /** This is normally where we send important values to the SmartDashboard */
+    SmartDashboard.putString("Driver Mode  ::  ", RobotContainer.noobMode.getSelected().toString());
+    SmartDashboard.putString("Drive Type   ::  ", RobotContainer.driveType.getSelected().toString());
   }
   
 }
