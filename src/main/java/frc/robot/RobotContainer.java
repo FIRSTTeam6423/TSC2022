@@ -23,8 +23,9 @@ import frc.robot.subsystems.DriveUtil;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveUtil driveUtil = new DriveUtil();
+  private final CannonUtilTemp cannonUtilTemp = new CannonUtilTemp();
 
-  private final OperateDrive operateDrive = new OperateDrive(driveUtil);
+  private final OperateDrive operateDrive = new OperateDrive(driveUtil, cannonUtilTemp);
 
   public static Joystick leftStick, rightStick;
   public static XboxController operator;
@@ -70,6 +71,7 @@ public class RobotContainer {
 
   private void configureDefaultCommands(){
     driveUtil.setDefaultCommand(operateDrive);
+
   }
 
   public static double getLeftStickX(){
@@ -88,6 +90,9 @@ public class RobotContainer {
     return rightStick.getY();
   }
 
+  //========XBOX========//
+  
+  //Sticks (Xbox)
   public static double getLeftXboxX(){
     return operator.getX(GenericHID.Hand.kLeft);
   }
@@ -104,4 +109,12 @@ public class RobotContainer {
     return operator.getY(GenericHID.Hand.kRight);
   }
 
+  //Buttons (Xbox)
+  public static bool getAButtonPressed(){
+    return operator.getAButtonPressed();
+  }
+
+  public static bool getBButtonPressed(){
+    return operator.getBButtonPressed();
+  }
 }

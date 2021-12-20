@@ -11,13 +11,16 @@ import frc.robot.subsystems.DriveUtil;
 public class OperateDrive extends CommandBase {
 
   private DriveUtil driveUtil;
-  private CannonUtilTemp cannonTempUtil;
+  private CannonUtilTemp cannonUtilTemp;
 
   /** Creates a new OperateDrive. */
-  public OperateDrive(DriveUtil du) {
+  public OperateDrive(DriveUtil du, CannonUtilTemp cut) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveUtil = du;
     addRequirements(this.driveUtil);
+
+    this.cannonUtilTemp = cut;
+    addRequirements(this.cannonUtilTemp);
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +34,13 @@ public class OperateDrive extends CommandBase {
                           RobotContainer.getLeftXboxY(), 
                           RobotContainer.getRightXboxX(),
                           RobotContainer.getRightXboxY());
+    if(RobotContainer.getAButtonPressed()){
+      cannonUtilTemp.shootBarrel1();
+    }
+    if(RobotContainer.getBButtonPressed()){
+      cannonUtilTemp.shootBarrel2();
+    }
+
   }
 
   // Called once the command ends or is interrupted.
