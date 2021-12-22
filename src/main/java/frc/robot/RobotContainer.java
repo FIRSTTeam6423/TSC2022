@@ -63,10 +63,6 @@ public class RobotContainer {
     /** XBox Button Mapping for Shooting Barrel 1 and 2 */
       new JoystickButton(operator, XboxController.Button.kB.value)
       .whenPressed(new OperateCannon(cannonUtil, 1));
-      
-      new JoystickButton(operator, XboxController.Button.kY.value)
-      .whenPressed(new OperateCannon(cannonUtil, 2));
-
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

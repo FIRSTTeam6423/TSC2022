@@ -43,7 +43,7 @@ public final class Constants {
     /**
      * CannonUtilTemp Constants
      */
-    public static final int BARREL_ONE = 4;
+    public static final int BARREL_ONE = 3;
     public static final int BARREL_TWO = 5;
     public static final int STOP_ONE = 0;
     public static final int STOP_TWO = 1;
