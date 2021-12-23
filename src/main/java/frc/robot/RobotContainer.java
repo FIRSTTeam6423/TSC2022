@@ -32,6 +32,7 @@ public class RobotContainer {
 
   public static Joystick leftStick, rightStick;
   public static XboxController operator;
+
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
