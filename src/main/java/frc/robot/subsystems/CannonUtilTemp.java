@@ -6,11 +6,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 /*
   Temporary subsystem created just to run the tshirt 
@@ -20,16 +22,16 @@ public class CannonUtilTemp extends SubsystemBase {
   /** Creates a new CannonUtil. */
   /** Place your variables here so they have class scope */
 
-  private WPI_TalonSRX barrel1;
-  private WPI_TalonSRX barrel2;
+  private WPI_VictorSPX barrel1;
+  private WPI_VictorSPX barrel2;
 
   private DigitalInput stop1;
   private DigitalInput stop2;
 
   public CannonUtilTemp() {
   /** instanciate your objects here in the class constructor */
-    barrel1 = new WPI_TalonSRX(Constants.BARREL_ONE);
-    barrel2 = new WPI_TalonSRX(Constants.BARREL_TWO);
+    barrel1 = new WPI_VictorSPX(Constants.BARREL_ONE);
+    barrel2 = new WPI_VictorSPX(Constants.BARREL_TWO);
 
     stop1 = new DigitalInput(Constants.STOP_ONE);
     stop2 = new DigitalInput(Constants.STOP_TWO);
@@ -72,7 +74,7 @@ public class CannonUtilTemp extends SubsystemBase {
    * if the limit switch is reached.
    */
   public boolean getBarrel1Limit(){
-    return stop1.get();
+    return !stop1.get();
   }
 
   public boolean getBarrel2Limit(){
@@ -87,6 +89,5 @@ public class CannonUtilTemp extends SubsystemBase {
     SmartDashboard.putNumber("Barrel 1 Speed         :: ", barrel1.get());
     SmartDashboard.putBoolean("Barrel 2 Limit Switch :: ", getBarrel2Limit());
     SmartDashboard.putNumber("Barrel 2 Speed         :: ", barrel2.get());
-
   }
 }

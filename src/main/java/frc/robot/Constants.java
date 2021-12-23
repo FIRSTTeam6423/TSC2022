@@ -22,7 +22,7 @@ public final class Constants {
      * Also need to update the Mapping document to reflect the correct CAN ID Assignments
      */
     public static final int LEFT_PRIMARY = 4;
-    public static final int LEFT_SECONDARY = 0;
+    public static final int LEFT_SECONDARY = 1;
     public static final int RIGHT_PRIMARY = 5;
     public static final int RIGHT_SECONDARY = 2;
 
@@ -36,7 +36,7 @@ public final class Constants {
     public static final int TRIGGER1_FORWARD = 0;
     public static final int TRIGGER1_BACK = 1;
     public static final int TRIGGER2_FORWARD = 2;
-    public static final int TRIGGER2_BACK = 3;
+    public static final int TRIGGER2_BACK = 1;
     public static final int TRIGGER3_FORWARD = 4;
     public static final int TRIGGER3_BACK = 5;
 
@@ -44,10 +44,10 @@ public final class Constants {
      * CannonUtilTemp Constants
      */
     public static final int BARREL_ONE = 3;
-    public static final int BARREL_TWO = 5;
+    public static final int BARREL_TWO = 6;
     public static final int STOP_ONE = 0;
     public static final int STOP_TWO = 1;
-    public static final double CANNON_MOTOR_SPEED = 0.1;
+    public static final double CANNON_MOTOR_SPEED = -0.3;
 
   /**
    * Controller Input Device Mapping
