@@ -38,6 +38,7 @@ public class RobotContainer {
   public final static Byte arcade = 0;
   public final static Byte tank = 1;
   public final static Byte sparrow = 2;
+  public final static Byte curvature = 3;
 
   public final static Byte pro = 0;
   public final static Byte noob = 1;
@@ -53,6 +54,7 @@ public class RobotContainer {
     driveType.setDefaultOption("Arcade", arcade);
     driveType.addOption("Tank", tank);
     driveType.addOption("Sparrow", sparrow);
+    driveType.addOption("Curvature", curvature);
     SmartDashboard.putData("Drive Type", driveType);
 
     noobMode = new SendableChooser<>();

@@ -71,7 +71,7 @@ public class DriveUtil extends SubsystemBase {
       driveSparrow();
 
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.curvature)) {
-      differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), RobotContainer.getLeftStickX());
+      differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), RobotContainer.getLeftStickX(), false);
     }
   }
 
