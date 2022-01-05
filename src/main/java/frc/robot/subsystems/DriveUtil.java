@@ -69,8 +69,8 @@ public class DriveUtil extends SubsystemBase {
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.sparrow)) {
       // If we are in SPARROW mode, use the custom code.
       driveSparrow();
-
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.curvature)) {
+      // If we are in CURVATURE mode, use the curvature mode
       differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), RobotContainer.getLeftStickX(), false);
     }
   }
@@ -99,8 +99,8 @@ public class DriveUtil extends SubsystemBase {
   public void sparrowDrive(double straight, double left, double right) {
     left = left*Constants.ARCADE_LEFT_DAMPENING/100;
     right = right*Constants.ARCADE_RIGHT_DAMPENING/100;
-    leftPrimary.set(ControlMode.PercentOutput, straight - left - right);
-    rightPrimary.set(ControlMode.PercentOutput, -(straight + left + right)); 
+    leftPrimary.set(ControlMode.PercentOutput, straight + left - right);
+    rightPrimary.set(ControlMode.PercentOutput, -(straight - left + right)); 
 }
 
 
