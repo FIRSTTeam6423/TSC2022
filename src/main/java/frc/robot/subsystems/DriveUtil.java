@@ -71,7 +71,7 @@ public class DriveUtil extends SubsystemBase {
       driveSparrow();
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.curvature)) {
       // If we are in CURVATURE mode, use the curvature mode
-      differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), RobotContainer.getLeftStickX(), false);
+      differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), RobotContainer.getLeftStickX(), true);
     }
   }
 
