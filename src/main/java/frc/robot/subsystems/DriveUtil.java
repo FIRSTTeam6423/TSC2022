@@ -60,10 +60,10 @@ public class DriveUtil extends SubsystemBase {
    */
   public void driveRobot() {
     setDriveControls();
-    if (RobotContainer.driveType.getSelected().equals(RobotContainer.tank)) {
+    if (RobotContainer.driveType.getSelected().equals(RobotContainer.arcade)) {
       // If we're in ARCADE mode, use arcadeDrive
       differentialDrive.arcadeDrive(RobotContainer.getRightStickY(), RobotContainer.getRightStickY());
-    } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.arcade)) {
+    } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.tank)) {
       // If we're in TANK mode, use tankDrive
       differentialDrive.tankDrive(RobotContainer.getLeftStickY(), RobotContainer.getRightStickY());
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.sparrow)) {
