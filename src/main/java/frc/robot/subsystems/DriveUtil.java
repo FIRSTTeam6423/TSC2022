@@ -62,16 +62,16 @@ public class DriveUtil extends SubsystemBase {
     setDriveControls();
     if (RobotContainer.driveType.getSelected().equals(RobotContainer.arcade)) {
       // If we're in ARCADE mode, use arcadeDrive
-      differentialDrive.arcadeDrive(RobotContainer.getRightStickY(), RobotContainer.getRightStickY());
+      differentialDrive.arcadeDrive(RobotContainer.getRightXboxY(), -RobotContainer.getRightXboxX());
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.tank)) {
       // If we're in TANK mode, use tankDrive
-      differentialDrive.tankDrive(RobotContainer.getLeftStickY(), RobotContainer.getRightStickY());
+      differentialDrive.tankDrive(RobotContainer.getLeftXboxY(), RobotContainer.getRightXboxY());
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.sparrow)) {
       // If we are in SPARROW mode, use the custom code.
       driveSparrow();
     } else if (RobotContainer.driveType.getSelected().equals(RobotContainer.curvature)) {
       // If we are in CURVATURE mode, use the curvature mode
-      differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), RobotContainer.getLeftXboxX(), true);
+      differentialDrive.curvatureDrive(RobotContainer.getLeftXboxTrigger() - RobotContainer.getRightXboxTrigger(), -RobotContainer.getLeftXboxX(), true);
     }
   }
 
